@@ -19,7 +19,7 @@
 
 /**
  * @file        main/main.hpp
- * @brief       main entry point.
+ * @brief       count_kbhit entry point.
  * @author      Killian Valverde
  * @date        2024/05/11
  */
@@ -40,11 +40,27 @@ int main(int argc, char* argv[])
         spd::ap::arg_parser ap("count_kbhit");
         
         ap.add_help_menu()
-                .description("Counts keyboard keystrokes.");
-                
+                .description("Count keyboard hits.")
+                .epilogue("Example: $ count_kbhit -n 0 -s 2 -p 0.073");
+
+        ap.add_key_value_arg("--start-number", "-n")
+                .description("Start number of keyboard hits.")
+                .values_names("INTEGER")
+                .store_into(&prog_args.start_nr);
+
+        ap.add_key_value_arg("--step-increase", "-s")
+                .description("Number step increase per keyboard hit.")
+                .values_names("INTEGER")
+                .store_into(&prog_args.step_inc);
+
+        ap.add_key_value_arg("--probability", "-p")
+                .description("Probability of the event to happen.")
+                .values_names("FLOAT")
+                .store_into(&prog_args.prob);
+
         ap.add_help_arg("--help", "-h")
                 .description("Display this help and exit.");
-                
+
         ap.add_version_arg("--version", "-v")
                 .description("Output version information and exit.")
                 .gplv3_version_information("0.0.0", "2024", "Killian Valverde");

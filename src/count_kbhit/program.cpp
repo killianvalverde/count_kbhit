@@ -38,9 +38,35 @@ program::program(program_args&& prog_args)
 
 int program::execute()
 {
-    std::cout << "hello, world" << std::endl;
-    
-    return 0;
+    double cur_prob;
+    std::error_code err_code;
+
+    std::cout << std::fixed << std::setprecision(3);
+
+    while (true)
+    {
+        if (prog_args_.prob != 0.0)
+        {
+            cur_prob = ((1 - std::pow(
+                    (100.0 - prog_args_.prob) / 100.0, prog_args_.start_nr)) * 100.0);
+
+            std::cout << "\r Number of keyboard hits: "
+                      << prog_args_.start_nr
+                      << " (" << cur_prob << "%)   "
+                      << std::flush;
+        }
+        else
+        {
+            std::cout << "\r Number of keyboard hits: " << prog_args_.start_nr << std::flush;
+        }
+
+        if (!spd::sys::term::kbhit(nullptr, true, &err_code))
+        {
+            throw spd::exceptions::message_exception(err_code.message());
+        }
+
+        prog_args_.start_nr += prog_args_.step_inc;
+    }
 }
 
 

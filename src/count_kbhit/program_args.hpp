@@ -18,8 +18,8 @@
  */
 
 /**
- * @file        count_kbhit/program_args.hpp
- * @brief       program_args struct header.
+ * @file        count_kbhit/program.hpp
+ * @brief       program class header.
  * @author      Killian Valverde
  * @date        2024/05/11
  */
@@ -36,6 +36,9 @@ namespace count_kbhit {
  */
 struct program_args
 {
+    std::size_t start_nr = 0;
+    std::size_t step_inc = 1;
+    double prob = 0.0;
 };
 
 
